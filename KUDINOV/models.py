@@ -44,7 +44,7 @@ class Zakaz(models.Model):
     anons = models.CharField('Анонс', max_length=250)
     full_text = models.TextField('Статья')
     date = models.DateTimeField('Дата публикации')
-    status = models.CharField('Статус', max_length=50)
+    status = models.CharField('Статья', max_length=50)
     payment_status = models.CharField('Статус оплаты', max_length=50)
 
     def __str__(self):
