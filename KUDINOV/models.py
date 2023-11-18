@@ -107,6 +107,7 @@ class Order(models.Model):
     full_text = models.TextField('Отзыв')
     date = models.DateTimeField('Дата публикации')
 
+
     def __str__(self):
         return self.title
 
