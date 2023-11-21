@@ -1,25 +1,30 @@
-from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from .serializers import CustomerSerializer, ArticlesSerializer
-from KUDINOV.models import Customer
-from KUDINOV.models import Articles
+from KUDINOV.models import Customer, Articles
+from .pagination import CustomPageNumberPagination
 
-
+class CustomerListView(APIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
+    pagination_class = CustomPageNumberPagination
 
 class CustomerAPIView(APIView):
-    def get(self,request):
-        customer = Customer.objects.filter()
-        serializer = CustomerSerializer(customer,many=True)
+    def get(self, request):
+        customers = Customer.objects.all()
+        serializer = CustomerSerializer(customers, many=True)
         return Response(serializer.data)
-
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer()
 
 class ArticlesAPIView(APIView):
-    def get(self, request):
-        articles = Articles.objects.filter()
-        serializer = ArticlesSerializer(articles, many=True)
-        return Response(serializer.data)
+    pagination_class = CustomPageNumberPagination
 
-    queryset = Articles.objects.all()
-    serializers_class = ArticlesSerializer()
+    def get_queryset(self):
+        return Articles.objects.all()
+
+    def get(self, request):
+        queryset = self.get_queryset()
+        page = self.request.query_params.get('page', 1)
+        paginator = self.pagination_class()
+        result_page = paginator.paginate_queryset(queryset, request)
+        serializer = ArticlesSerializer(queryset, many=True)
+        return Response(serializer.data)
