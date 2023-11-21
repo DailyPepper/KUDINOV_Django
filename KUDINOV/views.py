@@ -5,6 +5,7 @@ from .forms import CustomerForm
 from .forms import ReviewForm
 
 
+
 def index(request):
     return render(request, 'KUDINOV/index.html')
 
@@ -62,3 +63,7 @@ def my_view(request):
 
     # Остальной код представления
     return render(request, 'my_template.html', {'related_products': related_products})
+
+
+
+
