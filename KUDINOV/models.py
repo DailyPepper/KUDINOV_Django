@@ -3,12 +3,6 @@ from django.contrib import admin
 
 
 
-
-
-
-
-
-
 class Articles(models.Model):
     title = models.CharField('Название', max_length=50)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2, default=0.0)
