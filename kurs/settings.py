@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'simple_history',
     'KUDINOV',
     'api',
+    'import_export',
     # 'bootstrap4',
 ]
 REST_FRAMEWORK = {

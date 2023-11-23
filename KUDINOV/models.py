@@ -1,4 +1,5 @@
 from django.db import models
+from simple_history.models import HistoricalRecords
 from django.contrib import admin
 
 
@@ -94,6 +95,7 @@ class Review(models.Model):
     anons = models.CharField('Анонс', max_length=250)
     full_text = models.TextField('Статья')
     date = models.DateTimeField('Дата публикации', auto_now_add=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.title
@@ -131,7 +133,6 @@ class Customer(models.Model):
         ('O', 'Другой'),
     )
     gender = models.CharField('Пол', max_length=1, choices=gender_choices, default='')
-    products = models.ManyToManyField(Order)
 
     def __str__(self):
         return self.first_name

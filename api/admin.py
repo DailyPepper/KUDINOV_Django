@@ -1,3 +1,6 @@
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
-
-# Register your models here.
+from KUDINOV.models import Customer
+# @admin.register(Customer)
+# class UserAdmin(ImportExportModelAdmin):
+#     pass
