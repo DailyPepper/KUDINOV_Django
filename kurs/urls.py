@@ -16,6 +16,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls'), name='api-auth'),
     path('customer/', views.CustomerAPIView.as_view()),
     path('articles/', views.ArticlesAPIView.as_view()),
+    path('api/', include('api.urls', namespace='api')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

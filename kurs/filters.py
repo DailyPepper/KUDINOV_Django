@@ -1,4 +1,3 @@
-# filters.py
 import django_filters
 from rest_framework import generics, filters
 from KUDINOV.models import Customer, Articles
