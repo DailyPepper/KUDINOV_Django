@@ -1,5 +1,8 @@
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from .filters import IsOwnerFilterBackend
 from .serializers import CustomerSerializer, ArticlesSerializer
 from KUDINOV.models import Customer, Articles
 from .pagination import CustomPageNumberPagination
@@ -40,7 +43,9 @@ class CustomerAPIView(APIView):
             print(customer.username)
 class ArticlesAPIView(APIView):
     pagination_class = CustomPageNumberPagination
-
+    filter_backends = [SearchFilter, OrderingFilter]
+    ordering_fields = ['title', 'price', 'size']
+    permission_classes = (IsOwnerFilterBackend)
     def get_queryset(self):
         return Articles.objects.all()
 
