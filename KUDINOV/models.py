@@ -133,6 +133,7 @@ class Customer(models.Model):
         ('O', 'Другой'),
     )
     gender = models.CharField('Пол', max_length=1, choices=gender_choices, default='')
+    products = models.ManyToManyField(Order)
 
     def __str__(self):
         return self.first_name

@@ -15,11 +15,13 @@ from import_export.admin import ImportExportModelAdmin
 class CustomerAdmin(ImportExportModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'gender')
     search_fields = ('first_name', 'last_name', 'email')
+    filter_horizontal = ('products',)
     list_filter = ('gender',)
     fieldsets = (
         (None, {"fields": ['products']}),
         ("Контактная информация", {"fields": ['first_name', 'last_name', 'email', 'gender']}),
     )
+    raw_id_fields = ('products',)
     actions = ['send_email']
 
     def send_email(self, request, queryset):
