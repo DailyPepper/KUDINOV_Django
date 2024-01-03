@@ -10,4 +10,5 @@ router.register(r'articles', ArticleViewSet, basename='article')
 app_name = 'api'
 urlpatterns = [
     path('', include(router.urls)),
+
 ]

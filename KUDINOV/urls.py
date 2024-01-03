@@ -13,6 +13,7 @@ urlpatterns = [
     path('my-view/', views.my_view, name='my_view'),
     path('customer/', CustomerAPIView.as_view()),
     path('articles/', ArticlesAPIView.as_view())
+
 ]
 urlpatterns += staticfiles_urlpatterns()
 

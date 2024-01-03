@@ -1,14 +1,14 @@
-from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-from .filters import IsOwnerFilterBackend
+from rest_framework.decorators import action
 from .serializers import CustomerSerializer, ArticlesSerializer
 from KUDINOV.models import Customer, Articles
 from .pagination import CustomPageNumberPagination
-from rest_framework import generics
-import django_filters.rest_framework
-from django.db.models import Q
+
+
+def Q(username__startswith):
+    pass
+
 
 class CustomerAPIView(APIView):
     pagination_class = CustomPageNumberPagination
@@ -24,28 +24,47 @@ class CustomerAPIView(APIView):
         serializer = CustomerSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
-        @api_view(['GET'])
-        def filter_user(request):
-            first__name = self.request.query_params.get('first')
-            last__name = self.request.query_params.get('last')
-            emails = self.request.query_params.get('email')
+    @action(detail=False, methods=['GET'])
+    def filter_user(self, request):
+        first_name = self.request.query_params.get('first_name')
+        last_name = self.request.query_params.get('last_name')
+        email = self.request.query_params.get('email')
 
-            queryset = Customer.objects.filter(
-                Q(username__startswith='first__name') & ~Q(username__startswith='last__name') | Q(username__startswith='emails')
-            )
-            serializer = CustomerSerializer(queryset, many=True)
-            return Response(serializer.data)
+        queryset = Customer.objects.filter(
+            Q(username__startswith=first_name) & ~Q(username__startswith=last_name) | Q(username__startswith=email)
+        )
 
-        filtered_customers = Customer.objects.filter(q_filter)
+        serializer = CustomerSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-        # Вывод результатов
-        for customer in filtered_customers:
-            print(customer.username)
+    @action(detail=False, methods=['GET'])
+    def get_all_customers(self, request):
+        queryset = Customer.objects.all()
+        serializer = CustomerSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['POST'])
+    def create_customer(self, request):
+        serializer = CustomerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class SearchFilter:
+    pass
+
+
+class OrderingFilter:
+    pass
+
+
 class ArticlesAPIView(APIView):
     pagination_class = CustomPageNumberPagination
     filter_backends = [SearchFilter, OrderingFilter]
     ordering_fields = ['title', 'price', 'size']
-    permission_classes = (IsOwnerFilterBackend)
+
     def get_queryset(self):
         return Articles.objects.all()
 
@@ -57,10 +76,10 @@ class ArticlesAPIView(APIView):
         serializer = ArticlesSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
-# views.py
-class CustomerListView(generics.ListAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ['first_name', 'email']
-
+    @action(detail=False, methods=['POST'])
+    def create_article(self, request):
+        serializer = ArticlesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
