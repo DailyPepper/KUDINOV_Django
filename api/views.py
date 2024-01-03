@@ -14,7 +14,7 @@ class CustomerAPIView(viewsets.ViewSet):
 
     def list(self, request):
         queryset = self.get_queryset()
-        page = self.request.query_params.get('page', 2)
+        self.request.query_params.get('page', 4)
         paginator = self.pagination_class()
         result_page = paginator.paginate_queryset(queryset, request)
         serializer = CustomerSerializer(result_page, many=True)
