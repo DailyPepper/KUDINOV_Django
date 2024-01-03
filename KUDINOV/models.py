@@ -124,6 +124,7 @@ class Product(models.Model):
 
 
 class Customer(models.Model):
+    objects = None
     first_name = models.CharField('Имя', max_length=50, default='')
     last_name = models.CharField('Фамилия', max_length=50, default='')
     email = models.EmailField('Электронная почта', default='')

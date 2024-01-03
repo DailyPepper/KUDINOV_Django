@@ -37,6 +37,7 @@ class CustomerAPIView(viewsets.ViewSet):
         serializer = CustomerSerializer(queryset, many=True)
         return Response(serializer.data)
 
+
 @api_view(['GET'])
 def filter_user(request):
     first_name = request.query_params.get('first')
@@ -73,3 +74,15 @@ class CustomerListView(generics.ListAPIView):
     serializer_class = CustomerSerializer
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filterset_fields = ['first_name', 'email']
+
+    def filter_user(self, request):
+        first_name = request.query_params.get('first')
+        last_name = request.query_params.get('last')
+        emails = request.query_params.get('email')
+
+        queryset = Customer.objects.filter(
+            Q(username__startswith=first_name) & ~Q(username__startswith=last_name) | Q(username__startswith=emails)
+        ).distinct()
+
+        serializer = CustomerSerializer(queryset, many=True)
+        return Response(serializer.data)
