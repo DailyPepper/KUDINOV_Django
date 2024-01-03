@@ -2,31 +2,25 @@
 from rest_framework import viewsets
 from KUDINOV.models import Customer, Articles  # Поправлено на Articles
 from .serializers import CustomerSerializer, ArticleSerializer
+from .pagination import CustomPageNumberPagination
 from django.db.models import Q
 
-class CustomerViewSet(viewsets.ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+
+class CustomerAPIView(viewsets.ViewSet):
+    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
-        queryset = Customer.objects.all()
+        return Customer.objects.all()
 
-        first_name = self.request.query_params.get('first')
-        last_name = self.request.query_params.get('last')
-        email = self.request.query_params.get('email')
+    def list(self, request):
+        queryset = self.get_queryset()
+        page = self.request.query_params.get('page', 2)
+        paginator = self.pagination_class()
+        result_page = paginator.paginate_queryset(queryset, request)
+        serializer = CustomerSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
-        if first_name is not None:
-            queryset = queryset.filter(first_name__startswith=first_name)
-
-        if last_name is not None:
-            queryset = queryset.filter(last_name__startswith=last_name)
-
-        if email is not None:
-            queryset = queryset.filter(email=email)
-
-        return queryset
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticleSerializer
-

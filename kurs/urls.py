@@ -5,22 +5,18 @@ from kurs import settings
 from . import views
 from rest_framework import routers, serializers, viewsets
 from .views import CustomerAPIView
-from .views import ArticlesAPIView
+from .views import ArticlesViewSet
 
-
+router = routers.DefaultRouter()
+router.register(r'customer', CustomerAPIView, basename='customer')
+router.register(r'articles', ArticlesViewSet, basename='articles')
 
 app_name = "KUDINOV"
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('KUDINOV.urls')),
-    path('api-auth/', include('rest_framework.urls'), name='api-auth'),
-    path('customer/', CustomerAPIView.as_view(), name='customer-api-view'),
-    path('customer/filter_user/', CustomerAPIView.filter_user, name='customer-filter-user'),
-    path('customer/get_all_customers/', CustomerAPIView.get_all_customers, name='customer-get-all-customers'),
-    path('customer/create_customer/', CustomerAPIView.create_customer, name='customer-create-customer'),
-    path('articles/', ArticlesAPIView.as_view(), name='articles-api-view'),
-    path('articles/create_article/', ArticlesAPIView.create_article, name='articles-create-article'),
-    path('api/', include('api.urls', namespace='api')),
+                  path('admin/', admin.site.urls),
+                  path('', include('KUDINOV.urls')),
+                  path('api-auth/', include('rest_framework.urls'), name='api-auth'),
+                  path('api/', include(router.urls)),
+                  # path('api/', include('api.urls', namespace='api')),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
