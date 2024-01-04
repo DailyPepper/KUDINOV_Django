@@ -1,8 +1,14 @@
+from importlib import resources
+
 from django.db import models
 from simple_history.models import HistoricalRecords
 from django.contrib import admin
+from importlib import resources as importlib_resources
 
 
+
+class YourModel:
+    pass
 
 class Articles(models.Model):
     title = models.CharField('Название', max_length=50)
@@ -19,6 +25,11 @@ class Articles(models.Model):
     class Meta:
         verbose_name = 'М-товар'
         verbose_name_plural = 'Мужсукие товары'
+
+    class ArticlesResource(resources.ModelResource):
+        def get_export_queryset(self, request):
+            # Ваш пользовательский запрос для экспорта
+            return YourModel.objects.filter(some_condition=True)
 
 
 class Women(models.Model):

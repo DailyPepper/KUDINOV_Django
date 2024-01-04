@@ -1,3 +1,5 @@
+from importlib import resources
+
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -36,25 +38,31 @@ class CustomerAdmin(ImportExportModelAdmin):
         self.message_user(request, 'Электронное письмо отправлено.')
 
     send_email.short_description = 'Отправить электронное письмо'
+
+
+class ArticlesResource:
+    pass
+
+
 @admin.register(Articles)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(ImportExportModelAdmin):
     list_display = ('title', 'price', 'size', 'quantity')
     search_fields = ('title',)
     list_filter = ('size', 'price')
+    resource_class = ArticlesResource
 
     def get_search_results(self, request, queryset, search_term):
         queryset, use_distinct = super().get_search_results(request, queryset, search_term)
         try:
-            price_from = float(search_term)
-            price_to = float(search_term)
-            if price_from:
-                queryset |= self.model.objects.filter(price__gte=price_from)
-            if price_to:
-                queryset &= self.model.objects.filter(price__lte=price_to)
+            price = float(search_term)
+            queryset |= self.model.objects.filter(price__gte=price)
         except ValueError:
             pass
         return queryset, use_distinct
 
+class ArticlesResource(resources.ModelResource):
+    class Meta:
+        model = Articles
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
