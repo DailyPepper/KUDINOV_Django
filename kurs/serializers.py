@@ -1,15 +1,27 @@
 from rest_framework import serializers
-from KUDINOV.models import Customer
-from KUDINOV.models import Articles
+from KUDINOV.models import Customer, Articles
 
 
-class CustomerSerializer(serializers.HyperlinkedModelSerializer):
+class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'email', 'gender_choices']
 
 
-class ArticlesSerializer(serializers.HyperlinkedModelSerializer):
+
+from rest_framework import serializers
+from KUDINOV.models import Articles
+
+class ArticlesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Articles
-        fields = ['title', 'price', 'size', 'date']
+        fields = ('id', 'title', 'price', 'size', 'date')
+
+    def validate_title(self, value):
+        if Articles.objects.filter(title=value).exists():
+            raise serializers.ValidationError('Продукт с таким названием уже существует.')
+        return value
+
+    def validate_price(self, value):
+        if value < 0:
+            raise serializers.ValidationError('Цена должна быть больше 0')
+        return value

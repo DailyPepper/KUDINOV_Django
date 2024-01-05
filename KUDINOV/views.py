@@ -1,6 +1,6 @@
 from typing import Dict
 from django.shortcuts import render, redirect
-from .models import Product, Customer, Review
+from .models import Customer, Review, Articles
 from .forms import CustomerForm
 from .forms import ReviewForm
 
@@ -52,8 +52,8 @@ def about(request):
 
 def my_view(request):
     # Создание объектов и их связывание
-    product1 = Product.objects.create(name='Product 1')
-    product2 = Product.objects.create(name='Product 2')
+    product1 = Articles.objects.create(name='Product 1')
+    product2 = Articles.objects.create(name='Product 2')
 
     customer = Customer.objects.create(first_name='John', last_name='Doe', email='john@example.com', gender='M')
     customer.products.add(product1, product2)
@@ -63,7 +63,6 @@ def my_view(request):
 
     # Остальной код представления
     return render(request, 'my_template.html', {'related_products': related_products})
-
 
 
 

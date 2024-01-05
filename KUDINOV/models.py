@@ -1,11 +1,5 @@
-from importlib import resources
-
 from django.db import models
 from simple_history.models import HistoricalRecords
-from django.contrib import admin
-from importlib import resources as importlib_resources
-
-
 
 class YourModel:
     pass
@@ -17,20 +11,13 @@ class Articles(models.Model):
     photo = models.ImageField('Фото', upload_to='products/', default='')
     full_text = models.TextField('Характеристика')
     date = models.DateTimeField('Дата публикации')
-    quantity = models.IntegerField()
-
+    quantity = models.IntegerField(default=0)
     def __str__(self):
         return self.title
 
     class Meta:
         verbose_name = 'М-товар'
         verbose_name_plural = 'Мужсукие товары'
-
-    class ArticlesResource(resources.ModelResource):
-        def get_export_queryset(self, request):
-            # Ваш пользовательский запрос для экспорта
-            return YourModel.objects.filter(some_condition=True)
-
 
 class Women(models.Model):
     title = models.CharField('Название', max_length=50)
@@ -47,10 +34,6 @@ class Women(models.Model):
     class Meta:
         verbose_name = 'Ж-товар'
         verbose_name_plural = 'Женские товары'
-
-
-from django.db import models
-
 
 class Zakaz(models.Model):
     title = models.CharField('Название', max_length=50)
@@ -100,7 +83,6 @@ class Zakaz(models.Model):
     def delete_order(self):
         self.delete()
 
-
 class Review(models.Model):
     title = models.CharField('Название', max_length=50)
     anons = models.CharField('Анонс', max_length=250)
@@ -115,12 +97,10 @@ class Review(models.Model):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
-
 class Order(models.Model):
     title = models.CharField('Название', max_length=50)
     full_text = models.TextField('Отзыв')
     date = models.DateTimeField('Дата публикации')
-
 
     def __str__(self):
         return self.title
@@ -129,9 +109,6 @@ class Order(models.Model):
         verbose_name = 'Информация о товаре'
         verbose_name_plural = 'Информация о товарах'
 
-
-class Product(models.Model):
-    name = models.CharField(max_length=50)
 
 
 class Customer(models.Model):

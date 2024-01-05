@@ -1,8 +1,4 @@
-from importlib import resources
-
 from django.contrib import admin
-from django.contrib.auth.models import User
-from django.db.models import Q
 from django.core.mail import send_mail
 
 from .models import Articles
@@ -12,6 +8,9 @@ from .models import Review
 from .models import Order
 from .models import Customer
 from import_export.admin import ImportExportModelAdmin
+
+from .resources import ArticlesResource
+
 
 @admin.register(Customer)
 class CustomerAdmin(ImportExportModelAdmin):
@@ -40,9 +39,6 @@ class CustomerAdmin(ImportExportModelAdmin):
     send_email.short_description = 'Отправить электронное письмо'
 
 
-class ArticlesResource:
-    pass
-
 
 @admin.register(Articles)
 class ArticleAdmin(ImportExportModelAdmin):
@@ -60,9 +56,9 @@ class ArticleAdmin(ImportExportModelAdmin):
             pass
         return queryset, use_distinct
 
-class ArticlesResource(resources.ModelResource):
-    class Meta:
-        model = Articles
+# class ArticlesResource(resources.ModelResource):
+#     class Meta:
+#         model = Articles
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
