@@ -24,5 +24,4 @@ class ArticlesResource(resources.ModelResource):
         return Articles.objects.order_by('id')
 
     def get_export_queryset(self, request=None, queryset=None):
-        # You can customize the export queryset based on your needs
         return queryset
