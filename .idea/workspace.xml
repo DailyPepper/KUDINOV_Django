@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a4692b-9d4f-416d-86bf-5e0c4b8005f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kurs/management/commands/show_customers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/management/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/management/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/management/commands/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/management/commands/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/management/commands/commadsuser.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kurs/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,8 +46,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kurs" />
       <recent name="$PROJECT_DIR$/KUDINOV" />
+      <recent name="$PROJECT_DIR$/kurs" />
     </key>
   </component>
   <component name="SharedIndexes">

@@ -5,7 +5,7 @@ from KUDINOV.models import Customer, Articles
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-
+        fields = '__all__'
 
 
 from rest_framework import serializers
