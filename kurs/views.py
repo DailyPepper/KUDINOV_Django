@@ -1,10 +1,7 @@
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets
-from .filters import IsOwnerFilterBackend
 from .serializers import CustomerSerializer, ArticlesSerializer
 from KUDINOV.models import Customer, Articles
 from .pagination import CustomPageNumberPagination
@@ -59,16 +56,6 @@ class ArticlesViewSet(ModelViewSet):
     filterset_fields = ('title', 'size')
     search_fields = ('title',)  # Note the parentheses
 
-    # Uncomment this if you want to enable pagination
-    # def get(self, request):
-    #     queryset = self.get_queryset()
-    #     page = self.request.query_params.get('page', 2)
-    #     paginator = self.pagination_class()
-    #     result_page = paginator.paginate_queryset(queryset, request)
-    #     serializer = ArticlesSerializer(result_page, many=True)
-    #     return paginator.get_paginated_response(serializer.data)
-
-# views.py
 class CustomerListView(generics.ListAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer

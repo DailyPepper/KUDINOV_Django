@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a4692b-9d4f-416d-86bf-5e0c4b8005f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/kurs/management/commands/show_customers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KUDINOV/resources.py" beforeDir="false" afterPath="$PROJECT_DIR$/KUDINOV/resources.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/management/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/management/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/management/commands/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/management/commands/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/management/commands/commadsuser.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,21 +31,26 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 1
+}]]></component>
   <component name="ProjectId" id="2YcIbZnCKpzJQqEBCYiz8GErof5" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/79066/Desktop/Курсовые/kurs 3"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/79066/Desktop/Курсовые/kurs 3&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kurs" />
       <recent name="$PROJECT_DIR$/KUDINOV" />
     </key>
   </component>
