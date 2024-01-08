@@ -19,6 +19,7 @@ class Articles(models.Model):
         verbose_name = 'М-товар'
         verbose_name_plural = 'Мужсукие товары'
 
+
 class Women(models.Model):
     title = models.CharField('Название', max_length=50)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2, default=0.00)
@@ -27,7 +28,6 @@ class Women(models.Model):
     full_text = models.TextField('Характеристика')
     date = models.DateTimeField('Дата публикации')
     quantity = models.IntegerField(default=0)
-
     def __str__(self):
         return self.title
 

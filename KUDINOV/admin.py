@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.core.mail import send_mail
-
 from .models import Articles
 from .models import Women
 from .models import Zakaz
@@ -8,7 +7,6 @@ from .models import Review
 from .models import Order
 from .models import Customer
 from import_export.admin import ImportExportModelAdmin
-
 from .resources import ArticlesResource
 
 
@@ -24,7 +22,6 @@ class CustomerAdmin(ImportExportModelAdmin):
     )
     raw_id_fields = ('products',)
     actions = ['send_email']
-
     def send_email(self, request, queryset):
         for customer in queryset:
             send_mail(
@@ -37,7 +34,6 @@ class CustomerAdmin(ImportExportModelAdmin):
         self.message_user(request, 'Электронное письмо отправлено.')
 
     send_email.short_description = 'Отправить электронное письмо'
-
 
 
 @admin.register(Articles)
@@ -61,7 +57,7 @@ class ArticleAdmin(ImportExportModelAdmin):
 #         model = Articles
 
 @admin.register(Women)
-class WomenAdmin(admin.ModelAdmin):
+class WomenAdmin(ImportExportModelAdmin):
     list_display = ('title', 'price', 'size', 'quantity')
     search_fields = ('title',)
     list_filter = ('size', 'price')
@@ -78,6 +74,17 @@ class WomenAdmin(admin.ModelAdmin):
         except ValueError:
             pass
         return queryset, use_distinct
+
+    def get_export_queryset(self, request):
+        return Women.objects.all()
+
+    def export_women_to_excel(request):
+        queryset = request.get_export_queryset()
+        return ExcelResponse(
+            queryset,
+            output_name='women_export',
+            headers=['Название', 'Цена', 'Размер', 'Фото', 'Характеристика', 'Дата публикации', 'Количество']
+        )
 
 
 @admin.register(Zakaz)
@@ -99,6 +106,8 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('title', 'full_text', 'date')
     search_fields = ('title', 'full_text')
     list_filter = ('date',)
+
+
 
 
 

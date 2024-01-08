@@ -4,8 +4,6 @@ from .models import Customer, Review, Articles
 from .forms import CustomerForm
 from .forms import ReviewForm
 
-
-
 def index(request):
     return render(request, 'KUDINOV/index.html')
 
